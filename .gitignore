@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+
+# Backend
+backend/node_modules/
+backend/.env
+backend/dist/
+
+# Frontend
+frontend/node_modules/
+frontend/.env
+frontend/dist/
+frontend/build/
+
+# Logs
+*.log
+npm-debug.log*
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Prisma
+backend/prisma/migrations/
+
+# Misc
+*.bak
+*.tmp
+
+# Claude
+.claude/
+.claude
+
+# Projects (Claude memory and settings)
+projects/

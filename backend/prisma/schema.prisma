@@ -1,0 +1,131 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String   @default("Admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Profile {
+  id          Int     @id @default(autoincrement())
+  name        String  @default("John Doe")
+  title       String  @default("Full Stack Developer")
+  bio         String  @default("")
+  avatar      String  @default("")
+  resumeUrl   String  @default("")
+  githubUrl   String  @default("")
+  linkedinUrl String  @default("")
+  twitterUrl  String  @default("")
+  email       String  @default("")
+  phone       String  @default("")
+  location    String  @default("")
+  updatedAt   DateTime @updatedAt
+}
+
+model Skill {
+  id          Int    @id @default(autoincrement())
+  name        String
+  category    String @default("Frontend")
+  proficiency Int    @default(80)
+  icon        String @default("")
+  order       Int    @default(0)
+}
+
+model Project {
+  id              Int      @id @default(autoincrement())
+  title           String
+  description     String
+  longDescription String   @default("")
+  image           String   @default("")
+  demoUrl         String   @default("")
+  sourceUrl       String   @default("")
+  technologies    String   @default("[]")
+  featured        Boolean  @default(false)
+  order           Int      @default(0)
+  createdAt       DateTime @default(now())
+}
+
+model Experience {
+  id          Int       @id @default(autoincrement())
+  company     String
+  position    String
+  location    String    @default("")
+  startDate   DateTime
+  endDate     DateTime?
+  current     Boolean   @default(false)
+  description String    @default("")
+  order       Int       @default(0)
+}
+
+model Education {
+  id          Int       @id @default(autoincrement())
+  institution String
+  degree      String
+  field       String
+  startDate   DateTime
+  endDate     DateTime
+  description String    @default("")
+  order       Int       @default(0)
+}
+
+model Certificate {
+  id          Int       @id @default(autoincrement())
+  name        String
+  issuer      String
+  date        DateTime
+  url         String    @default("")
+  description String    @default("")
+  order       Int       @default(0)
+}
+
+model Blog {
+  id        Int      @id @default(autoincrement())
+  title     String
+  slug      String   @unique
+  excerpt   String   @default("")
+  content   String   @default("")
+  image     String   @default("")
+  published Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Testimonial {
+  id       Int    @id @default(autoincrement())
+  name     String
+  role     String
+  company  String @default("")
+  content  String
+  avatar   String @default("")
+  rating   Int    @default(5)
+  order    Int    @default(0)
+}
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  subject   String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model ActivityLog {
+  id          Int      @id @default(autoincrement())
+  action      String
+  entityType  String
+  entityId    Int
+  description String
+  createdAt   DateTime @default(now())
+}
