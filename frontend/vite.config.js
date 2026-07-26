@@ -7,7 +7,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'https://portfolio-ui-7ays.onrender.com',
+        target: 'https://portfolio-7qum.onrender.com/',
         changeOrigin: true
       }
     }
