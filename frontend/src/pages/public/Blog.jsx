@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Calendar, ArrowRight } from 'lucide-react';
-import axios from 'axios';
+import api from '../../utils/api';
 import Card from '../../components/ui/Card';
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/blogs').then(res => setBlogs(res.data)).catch(() => {});
+    api.get('/blogs').then(res => setBlogs(res.data)).catch(() => {});
   }, []);
 
   const formatDate = (date) => new Date(date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });

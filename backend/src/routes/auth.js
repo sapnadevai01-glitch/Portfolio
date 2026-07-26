@@ -13,6 +13,7 @@ router.post('/login', [
   body('password').isLength({ min: 6 })
 ], async (req, res) => {
   try {
+    console.log('hit api url')
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });

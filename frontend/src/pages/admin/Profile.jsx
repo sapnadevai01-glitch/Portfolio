@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../../utils/api';
 import toast from 'react-hot-toast';
 import Card from '../../components/ui/Card';
 import Input from '../../components/ui/Input';
@@ -16,14 +16,14 @@ const Profile = () => {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    axios.get('/api/profile').then(res => setProfile(res.data)).catch(() => {});
+    api.get('/profile').then(res => setProfile(res.data)).catch(() => {});
   }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
-      await axios.put('/api/profile', profile);
+      await api.put('/profile', profile);
       toast.success('Profile updated successfully!');
     } catch (err) {
       toast.error('Failed to update profile');

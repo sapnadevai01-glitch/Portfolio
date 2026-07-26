@@ -25,7 +25,9 @@ npm-debug.log*
 Thumbs.db
 
 # Prisma
-prisma/migrations/
+migrations/
+*.db
+*.db-journal
 
 # Misc
 *.bak

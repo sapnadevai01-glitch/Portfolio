@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../../utils/api';
 import toast from 'react-hot-toast';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
@@ -19,7 +19,7 @@ const Blogs = () => {
   useEffect(() => { fetchBlogs(); }, []);
 
   const fetchBlogs = async () => {
-    try { const res = await axios.get('/api/blogs/all'); setBlogs(res.data); }
+    try { const res = await api.get('/blogs/all'); setBlogs(res.data); }
     catch { toast.error('Failed to load'); }
   };
 
@@ -33,8 +33,8 @@ const Blogs = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      if (editBlog) { await axios.put(`/api/blogs/${editBlog.id}`, form); toast.success('Updated!'); }
-      else { await axios.post('/api/blogs', form); toast.success('Created!'); }
+      if (editBlog) { await api.put(`/blogs/${editBlog.id}`, form); toast.success('Updated!'); }
+      else { await api.post('/blogs', form); toast.success('Created!'); }
       setModalOpen(false);
       fetchBlogs();
     } catch { toast.error('Failed to save'); }
@@ -43,7 +43,7 @@ const Blogs = () => {
 
   const handleDelete = async (id) => {
     if (!confirm('Delete?')) return;
-    try { await axios.delete(`/api/blogs/${id}`); toast.success('Deleted'); fetchBlogs(); }
+    try { await api.delete(`/blogs/${id}`); toast.success('Deleted'); fetchBlogs(); }
     catch { toast.error('Failed'); }
   };
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../../utils/api';
 import { useAuth } from '../../context/AuthContext';
 import Card from '../../components/ui/Card';
 import { FolderKanban, Wrench, Briefcase, GraduationCap, Award, FileText, MessageSquare, Eye } from 'lucide-react';
@@ -14,8 +14,8 @@ const Dashboard = () => {
     const fetchData = async () => {
       try {
         const [statsRes, activitiesRes] = await Promise.all([
-          axios.get('/api/admin/stats'),
-          axios.get('/api/admin/activities')
+          api.get('/admin/stats'),
+          api.get('/admin/activities')
         ]);
         setStats(statsRes.data);
         setActivities(activitiesRes.data);

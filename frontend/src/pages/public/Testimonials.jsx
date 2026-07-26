@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
-import axios from 'axios';
+import api from '../../utils/api';
 import Card from '../../components/ui/Card';
 
 const Testimonials = () => {
@@ -10,7 +10,7 @@ const Testimonials = () => {
   const intervalRef = useRef();
 
   useEffect(() => {
-    axios.get('/api/testimonials').then(res => setTestimonials(res.data)).catch(() => {});
+    api.get('/testimonials').then(res => setTestimonials(res.data)).catch(() => {});
   }, []);
 
   useEffect(() => {

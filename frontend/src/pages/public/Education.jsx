@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, GraduationCap } from 'lucide-react';
-import axios from 'axios';
+import api from '../../utils/api';
 import Card from '../../components/ui/Card';
 
 const Education = () => {
   const [education, setEducation] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/education').then(res => setEducation(res.data)).catch(() => {});
+    api.get('/education').then(res => setEducation(res.data)).catch(() => {});
   }, []);
 
   const formatDate = (date) => new Date(date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../../utils/api';
 import toast from 'react-hot-toast';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
@@ -18,7 +18,7 @@ const Certificates = () => {
   useEffect(() => { fetchCertificates(); }, []);
 
   const fetchCertificates = async () => {
-    try { const res = await axios.get('/api/certificates'); setCertificates(res.data); }
+    try { const res = await api.get('/certificates'); setCertificates(res.data); }
     catch { toast.error('Failed to load'); }
   };
 
@@ -32,8 +32,8 @@ const Certificates = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      if (editCert) { await axios.put(`/api/certificates/${editCert.id}`, form); toast.success('Updated!'); }
-      else { await axios.post('/api/certificates', form); toast.success('Created!'); }
+      if (editCert) { await api.put(`/certificates/${editCert.id}`, form); toast.success('Updated!'); }
+      else { await api.post('/certificates', form); toast.success('Created!'); }
       setModalOpen(false);
       fetchCertificates();
     } catch { toast.error('Failed to save'); }
@@ -42,7 +42,7 @@ const Certificates = () => {
 
   const handleDelete = async (id) => {
     if (!confirm('Delete?')) return;
-    try { await axios.delete(`/api/certificates/${id}`); toast.success('Deleted'); fetchCertificates(); }
+    try { await api.delete(`/certificates/${id}`); toast.success('Deleted'); fetchCertificates(); }
     catch { toast.error('Failed'); }
   };
 

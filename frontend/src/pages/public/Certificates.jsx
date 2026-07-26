@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Award, ExternalLink, Calendar } from 'lucide-react';
-import axios from 'axios';
+import api from '../../utils/api';
 import Card from '../../components/ui/Card';
 
 const Certificates = () => {
   const [certificates, setCertificates] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/certificates').then(res => setCertificates(res.data)).catch(() => {});
+    api.get('/certificates').then(res => setCertificates(res.data)).catch(() => {});
   }, []);
 
   const formatDate = (date) => new Date(date).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });

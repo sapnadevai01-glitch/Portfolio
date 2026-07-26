@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../../utils/api';
 import toast from 'react-hot-toast';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
@@ -23,7 +23,7 @@ const Projects = () => {
 
   const fetchProjects = async () => {
     try {
-      const res = await axios.get('/api/projects/all');
+      const res = await api.get('/projects/all');
       setProjects(res.data);
     } catch (err) { toast.error('Failed to load projects'); }
   };
@@ -51,10 +51,10 @@ const Projects = () => {
         technologies: form.technologies.split(',').map(t => t.trim()).filter(Boolean)
       };
       if (editProject) {
-        await axios.put(`/api/projects/${editProject.id}`, data);
+        await api.put(`/projects/${editProject.id}`, data);
         toast.success('Project updated!');
       } else {
-        await axios.post('/api/projects', data);
+        await api.post('/projects', data);
         toast.success('Project created!');
       }
       setModalOpen(false);
@@ -66,7 +66,7 @@ const Projects = () => {
   const handleDelete = async (id) => {
     if (!confirm('Delete this project?')) return;
     try {
-      await axios.delete(`/api/projects/${id}`);
+      await api.delete(`/projects/${id}`);
       toast.success('Project deleted');
       fetchProjects();
     } catch (err) { toast.error('Failed to delete'); }

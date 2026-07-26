@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../../utils/api';
 import toast from 'react-hot-toast';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
@@ -18,7 +18,7 @@ const Testimonials = () => {
   useEffect(() => { fetchTestimonials(); }, []);
 
   const fetchTestimonials = async () => {
-    try { const res = await axios.get('/api/testimonials'); setTestimonials(res.data); }
+    try { const res = await api.get('/testimonials'); setTestimonials(res.data); }
     catch { toast.error('Failed to load'); }
   };
 
@@ -32,8 +32,8 @@ const Testimonials = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      if (editTestimonial) { await axios.put(`/api/testimonials/${editTestimonial.id}`, form); toast.success('Updated!'); }
-      else { await axios.post('/api/testimonials', form); toast.success('Created!'); }
+      if (editTestimonial) { await api.put(`/testimonials/${editTestimonial.id}`, form); toast.success('Updated!'); }
+      else { await api.post('/testimonials', form); toast.success('Created!'); }
       setModalOpen(false);
       fetchTestimonials();
     } catch { toast.error('Failed to save'); }
@@ -42,7 +42,7 @@ const Testimonials = () => {
 
   const handleDelete = async (id) => {
     if (!confirm('Delete?')) return;
-    try { await axios.delete(`/api/testimonials/${id}`); toast.success('Deleted'); fetchTestimonials(); }
+    try { await api.delete(`/testimonials/${id}`); toast.success('Deleted'); fetchTestimonials(); }
     catch { toast.error('Failed'); }
   };
 

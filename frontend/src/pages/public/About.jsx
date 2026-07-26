@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Download, MapPin, Mail, Phone } from 'lucide-react';
-import axios from 'axios';
+import api from '../../utils/api';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
 
@@ -9,7 +9,7 @@ const About = () => {
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    axios.get('/api/profile').then(res => setProfile(res.data)).catch(() => {});
+    api.get('/profile').then(res => setProfile(res.data)).catch(() => {});
   }, []);
 
   return (

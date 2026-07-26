@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../../utils/api';
 import Card from '../../components/ui/Card';
 
 const Skills = () => {
@@ -9,7 +9,7 @@ const Skills = () => {
   const [activeCategory, setActiveCategory] = useState('All');
 
   useEffect(() => {
-    axios.get('/api/skills').then(res => {
+    api.get('/skills').then(res => {
       setSkills(res.data);
       const cats = ['All', ...new Set(res.data.map(s => s.category))];
       setCategories(cats);

@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Calendar, ArrowLeft } from 'lucide-react';
-import axios from 'axios';
+import api from '../../utils/api';
 
 const BlogDetail = () => {
   const { slug } = useParams();
   const [blog, setBlog] = useState(null);
 
   useEffect(() => {
-    axios.get(`/api/blogs/${slug}`).then(res => setBlog(res.data)).catch(() => {});
+    api.get(`/blogs/${slug}`).then(res => setBlog(res.data)).catch(() => {});
   }, [slug]);
 
   if (!blog) {

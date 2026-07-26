@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, MapPin } from 'lucide-react';
-import axios from 'axios';
+import api from '../../utils/api';
 import Card from '../../components/ui/Card';
 
 const Experience = () => {
   const [experiences, setExperiences] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/experiences').then(res => setExperiences(res.data)).catch(() => {});
+    api.get('/experiences').then(res => setExperiences(res.data)).catch(() => {});
   }, []);
 
   const formatDate = (date) => {

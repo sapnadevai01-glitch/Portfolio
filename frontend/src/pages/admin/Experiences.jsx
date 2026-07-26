@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../../utils/api';
 import toast from 'react-hot-toast';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
@@ -18,7 +18,7 @@ const Experiences = () => {
   useEffect(() => { fetchExperiences(); }, []);
 
   const fetchExperiences = async () => {
-    try { const res = await axios.get('/api/experiences'); setExperiences(res.data); }
+    try { const res = await api.get('/experiences'); setExperiences(res.data); }
     catch { toast.error('Failed to load'); }
   };
 
@@ -37,8 +37,8 @@ const Experiences = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      if (editExp) { await axios.put(`/api/experiences/${editExp.id}`, form); toast.success('Updated!'); }
-      else { await axios.post('/api/experiences', form); toast.success('Created!'); }
+      if (editExp) { await api.put(`/experiences/${editExp.id}`, form); toast.success('Updated!'); }
+      else { await api.post('/experiences', form); toast.success('Created!'); }
       setModalOpen(false);
       fetchExperiences();
     } catch { toast.error('Failed to save'); }
@@ -47,7 +47,7 @@ const Experiences = () => {
 
   const handleDelete = async (id) => {
     if (!confirm('Delete?')) return;
-    try { await axios.delete(`/api/experiences/${id}`); toast.success('Deleted'); fetchExperiences(); }
+    try { await api.delete(`/experiences/${id}`); toast.success('Deleted'); fetchExperiences(); }
     catch { toast.error('Failed'); }
   };
 

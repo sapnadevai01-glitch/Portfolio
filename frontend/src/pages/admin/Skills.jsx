@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../../utils/api';
 import toast from 'react-hot-toast';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
@@ -17,7 +17,7 @@ const Skills = () => {
   useEffect(() => { fetchSkills(); }, []);
 
   const fetchSkills = async () => {
-    try { const res = await axios.get('/api/skills'); setSkills(res.data); }
+    try { const res = await api.get('/skills'); setSkills(res.data); }
     catch { toast.error('Failed to load skills'); }
   };
 
@@ -31,8 +31,8 @@ const Skills = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      if (editSkill) { await axios.put(`/api/skills/${editSkill.id}`, form); toast.success('Skill updated!'); }
-      else { await axios.post('/api/skills', form); toast.success('Skill created!'); }
+      if (editSkill) { await api.put(`/skills/${editSkill.id}`, form); toast.success('Skill updated!'); }
+      else { await api.post('/skills', form); toast.success('Skill created!'); }
       setModalOpen(false);
       fetchSkills();
     } catch { toast.error('Failed to save'); }
@@ -41,7 +41,7 @@ const Skills = () => {
 
   const handleDelete = async (id) => {
     if (!confirm('Delete this skill?')) return;
-    try { await axios.delete(`/api/skills/${id}`); toast.success('Deleted'); fetchSkills(); }
+    try { await api.delete(`/skills/${id}`); toast.success('Deleted'); fetchSkills(); }
     catch { toast.error('Failed to delete'); }
   };
 

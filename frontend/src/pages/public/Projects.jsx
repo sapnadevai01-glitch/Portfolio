@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Github, X } from 'lucide-react';
-import axios from 'axios';
+import api from '../../utils/api';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
 
@@ -10,7 +10,7 @@ const Projects = () => {
   const [selectedProject, setSelectedProject] = useState(null);
 
   useEffect(() => {
-    axios.get('/api/projects/all').then(res => setProjects(res.data)).catch(() => {});
+    api.get('/projects/all').then(res => setProjects(res.data)).catch(() => {});
   }, []);
 
   return (

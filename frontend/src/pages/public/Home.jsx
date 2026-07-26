@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Download, Sparkles } from 'lucide-react';
-import axios from 'axios';
+import api from '../../utils/api';
 import { useEffect, useState } from 'react';
 import Button from '../../components/ui/Button';
 import Card from '../../components/ui/Card';
@@ -10,7 +10,7 @@ const Home = () => {
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
-    axios.get('/api/profile').then(res => setProfile(res.data)).catch(() => {});
+    api.get('/profile').then(res => setProfile(res.data)).catch(() => {});
   }, []);
 
   const containerVariants = {
@@ -180,7 +180,7 @@ const FeaturedProjects = () => {
   const [projects, setProjects] = useState([]);
 
   useEffect(() => {
-    axios.get('/api/projects?featured=true').then(res => setProjects(res.data)).catch(() => {});
+    api.get('/projects?featured=true').then(res => setProjects(res.data)).catch(() => {});
   }, []);
 
   if (!projects.length) return null;

@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../../utils/api';
 import toast from 'react-hot-toast';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
@@ -18,7 +18,7 @@ const Education = () => {
   useEffect(() => { fetchEducation(); }, []);
 
   const fetchEducation = async () => {
-    try { const res = await axios.get('/api/education'); setEducation(res.data); }
+    try { const res = await api.get('/education'); setEducation(res.data); }
     catch { toast.error('Failed to load'); }
   };
 
@@ -37,8 +37,8 @@ const Education = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      if (editEdu) { await axios.put(`/api/education/${editEdu.id}`, form); toast.success('Updated!'); }
-      else { await axios.post('/api/education', form); toast.success('Created!'); }
+      if (editEdu) { await api.put(`/education/${editEdu.id}`, form); toast.success('Updated!'); }
+      else { await api.post('/education', form); toast.success('Created!'); }
       setModalOpen(false);
       fetchEducation();
     } catch { toast.error('Failed to save'); }
@@ -47,7 +47,7 @@ const Education = () => {
 
   const handleDelete = async (id) => {
     if (!confirm('Delete?')) return;
-    try { await axios.delete(`/api/education/${id}`); toast.success('Deleted'); fetchEducation(); }
+    try { await api.delete(`/education/${id}`); toast.success('Deleted'); fetchEducation(); }
     catch { toast.error('Failed'); }
   };
 

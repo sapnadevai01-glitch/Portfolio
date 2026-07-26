@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import axios from 'axios';
+import api from '../../utils/api';
 import toast from 'react-hot-toast';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
@@ -12,18 +12,18 @@ const Messages = () => {
   useEffect(() => { fetchMessages(); }, []);
 
   const fetchMessages = async () => {
-    try { const res = await axios.get('/api/admin/messages'); setMessages(res.data); }
+    try { const res = await api.get('/admin/messages'); setMessages(res.data); }
     catch { toast.error('Failed to load'); }
   };
 
   const markAsRead = async (id) => {
-    try { await axios.put(`/api/admin/messages/${id}/read`); toast.success('Marked as read'); fetchMessages(); }
+    try { await api.put(`/admin/messages/${id}/read`); toast.success('Marked as read'); fetchMessages(); }
     catch { toast.error('Failed'); }
   };
 
   const deleteMessage = async (id) => {
     if (!confirm('Delete this message?')) return;
-    try { await axios.delete(`/api/admin/messages/${id}`); toast.success('Deleted'); fetchMessages(); }
+    try { await api.delete(`/admin/messages/${id}`); toast.success('Deleted'); fetchMessages(); }
     catch { toast.error('Failed'); }
   };
 
