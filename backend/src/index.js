@@ -33,7 +33,7 @@ const contactLimiter = rateLimit({
 
 // Middleware
 app.use(cors({
-  origin: '*',
+  origin: 'https://portfolio-api-indol-tau.vercel.app',
   credentials: true
 }));
 app.use(express.json({ limit: '10mb' }));
