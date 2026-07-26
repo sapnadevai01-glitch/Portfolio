@@ -6,6 +6,10 @@ node_modules/
 .env.local
 .env.*.local
 
+db_backup.sql
+
+
+
 # Build
 dist/
 build/

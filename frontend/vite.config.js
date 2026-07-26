@@ -7,7 +7,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'https://portfolio-7qum.onrender.com',
+        target: 'https://portfolio-api-indol-tau.vercel.app',
         changeOrigin: true
       }
     }
