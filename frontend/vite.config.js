@@ -7,7 +7,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       '/api': {
-        target: 'https://portfolio-7qum.onrender.com',
+        target: 'https://portfolio-api-production-e503.up.railway.app',
         changeOrigin: true
       }
     }
